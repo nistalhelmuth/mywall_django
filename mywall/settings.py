@@ -14,7 +14,7 @@ SECRET_KEY = '=9sm)*$7jv!iqbypt!bpb*fxq&get+3f_g*5)kd422@ap%bxi^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -26,6 +26,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'posts',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -114,6 +116,8 @@ STATIC_URL = '/static/'
 
 # Custom settings
 
+AUTH_USER_MODEL = "users.User" 
+
 REST_FRAMEWORK = {
   'DEFAULT_AUTHENTICATION_CLASSES': (
     'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
@@ -121,8 +125,6 @@ REST_FRAMEWORK = {
 }
 
 JWT_AUTH = {
- 
     'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3000),
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
- 
 }
