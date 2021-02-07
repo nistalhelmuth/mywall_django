@@ -1,4 +1,4 @@
-# users/serializers.py
+from collections import OrderedDict
 from rest_framework import serializers
 from.models import User
  
@@ -13,10 +13,17 @@ class UserSerializer(serializers.ModelSerializer):
             'email',
             'name',
             'city',
-            'age'
+            'genre',
+            'date_created',
+            'password'
         )
         extra_kwargs = {
             'password': {
                 'write_only': True
             }
         }
+    
+    def to_representation(self, value):
+        repr_dict = super(UserSerializer, self).to_representation(value)
+        return OrderedDict((k, v) for k, v in repr_dict.items() 
+                           if v not in [None, [], '', {}])
