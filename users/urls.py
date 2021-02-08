@@ -1,8 +1,11 @@
-from django.conf.urls import url
+from django.urls import path
+from rest_framework.urlpatterns import format_suffix_patterns
 from .views import register_user, authenticate_user, UserProfileAPIView
  
 urlpatterns = [
-    url(r'^register/$', register_user),
-    url(r'^login/$', authenticate_user),
-    url(r'^profile/$', UserProfileAPIView.as_view())
+    path('register/', register_user),
+    path('login/', authenticate_user),
+    path('profile/<int:pk>/', UserProfileAPIView.as_view())
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)

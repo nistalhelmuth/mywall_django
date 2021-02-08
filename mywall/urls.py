@@ -1,8 +1,8 @@
 from django.contrib import admin
-from django.conf.urls import url, include
+from django.urls import path, include
 
 urlpatterns = [
-    url('admin/', admin.site.urls),
-    url(r'^users/', include(('users.urls', 'users'), namespace='users')),
-    url(r'^posts/', include(('posts.urls', 'posts'), namespace='posts'))
+    path('admin/', admin.site.urls),
+    path('users/', include(('users.urls', 'users'), namespace='users')),
+    path('posts/', include(('posts.urls', 'posts'), namespace='posts'))
 ]

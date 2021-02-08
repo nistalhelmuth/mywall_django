@@ -1,7 +1,10 @@
-from django.conf.urls import url
+from django.urls import path
+from rest_framework.urlpatterns import format_suffix_patterns
 from .views import PostViewSet
  
 urlpatterns = [
-    url(r'^general/$', PostViewSet.as_view())
+    path('general/', PostViewSet.as_view())
     #url(r'^specific/$', PostViewSet),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
