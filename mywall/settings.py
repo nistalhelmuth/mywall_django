@@ -14,7 +14,7 @@ SECRET_KEY = '=9sm)*$7jv!iqbypt!bpb*fxq&get+3f_g*5)kd422@ap%bxi^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'posts',
     'users',
 ]
@@ -38,6 +39,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = 'mywall.urls'
@@ -115,6 +117,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Custom settings
+
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 AUTH_USER_MODEL = "users.User" 
 
