@@ -11,6 +11,13 @@ class PostViewSet(ListCreateAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
     serializer_class = PostSerializer
 
+    def get_queryset(self):
+        queryset = Post.objects.all()
+        created_by = self.request.query_params.get('created_by', None)
+        if created_by not in [None, '']:
+            queryset = queryset.filter(created_by_id=created_by)
+        return queryset
+
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
 
