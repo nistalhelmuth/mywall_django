@@ -49,6 +49,3 @@ class UserProfileAPIView(RetrieveAPIView):
     queryset = User.objects.all()
     permission_classes = (IsAuthenticatedOrReadOnly,)
     serializer_class = UserDetailSerializer
- 
-    def get(self, request, *args, **kwargs):
-        return self.retrieve(request, *args, **kwargs)
