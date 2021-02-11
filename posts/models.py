@@ -10,6 +10,9 @@ class Comment(models.Model):
 
     def __str__(self):
         return "%s-%s" % (self.created_by, self.date_created)
+    
+    class Meta:
+        ordering = ['-date_created']
 
 
 class Post(models.Model):
@@ -22,5 +25,8 @@ class Post(models.Model):
 
     def __str__(self):
         return "%s-%s" % (self.created_by, self.date_created)
+    
+    class Meta:
+        ordering = ['-date_created']
 
     

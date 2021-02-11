@@ -5,7 +5,7 @@ from .models import Post, Comment
 
 class CommentSerializer(serializers.ModelSerializer):
     date_created = serializers.ReadOnlyField()
-    created_by = UserSerializer()
+    created_by = UserSerializer(read_only=True)
 
     class Meta:
         model = Comment
@@ -18,9 +18,8 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     date_created = serializers.ReadOnlyField()
-    created_by = UserSerializer()
-    comments = CommentSerializer(read_only=True, many=True)
-
+    created_by = UserSerializer(read_only = True)
+    
     class Meta:
         model = Post
         fields = (
@@ -28,7 +27,6 @@ class PostSerializer(serializers.ModelSerializer):
             'content',
             'date_created',
             'created_by',
-            'comments',
         )
     
     def to_representation(self, value):

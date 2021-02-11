@@ -1,13 +1,17 @@
 from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.generics import ListCreateAPIView
+from rest_framework.response import Response
+from mywall.pagination import CustomPagination
+from django.http import Http404
 from .models import Post, Comment
-from .serializers import PostSerializer
-
+from users.models import User
+from .serializers import PostSerializer, CommentSerializer
 
 class PostViewSet(ListCreateAPIView):
     queryset = Post.objects.all()
+    pagination_class = CustomPagination
     permission_classes = (IsAuthenticatedOrReadOnly,)
     serializer_class = PostSerializer
 
@@ -18,8 +22,36 @@ class PostViewSet(ListCreateAPIView):
             queryset = queryset.filter(created_by_id=created_by)
         return queryset
 
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
+    def post(self, request, format=None):
+        serializer = PostSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save(created_by = request.user)
+            return Response(serializer.data, status = status.HTTP_201_CREATED)
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
+class CommentViewSet(ListCreateAPIView):
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    def get_object(self, pk):
+        try:
+            return Comment.objects.filter(post__id = pk)
+        except Comment.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        comments = self.get_object(pk)
+        serializer = CommentSerializer(comments, many = True)
+        return Response(serializer.data)
+    
+    def post(self, request, pk, format=None):
+        serializer = CommentSerializer(data = request.data)
+        if serializer.is_valid():
+            try:
+                serializer.save(created_by = request.user)
+                Post.objects.get(id = pk).comments.add(serializer.data["id"])
+                return Response(serializer.data, status = status.HTTP_201_CREATED)
+            except Post.DoesNotExist:
+                comment = Comment.objects.get(id=serializer.data["id"])
+                comment.delete()
+                raise Http404
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
