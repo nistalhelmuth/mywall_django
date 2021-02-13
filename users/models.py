@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.db import transaction
 from django.contrib.auth.models import (
     AbstractBaseUser, PermissionsMixin, BaseUserManager
 )
@@ -36,35 +37,28 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     name = models.CharField(max_length = 30, null = False)
     city = models.CharField(max_length = 30, null = False)
-    age = models.IntegerField(default = 0, null = False)
+    age = models.IntegerField(default = 0)
     visitors = models.IntegerField(default = 0)
     verified = models.CharField(max_length = 30, default = False)
-    FEMALE = 'F'
-    MALE = 'M'
-    FEELINGS_CHOICES = [
-        (FEMALE, 'FEMALE'),
-        (MALE, 'MALE'),
+    GENRE_CHOICES = [
+        ('F', 'FEMALE'),
+        ('M', 'MALE'),
     ]
     genre = models.CharField(
-        max_length = 30,
-        choices = YEAR_IN_SCHOOL_CHOICES,
+        max_length = 1,
+        choices = GENRE_CHOICES,
         null = False
     )
-    HAPPY = 'H'
-    ANGRY = 'A'
-    SAD = 'S'
-    MOTIVATED = 'M'
-    BORED = 'B'
     FEELINGS_CHOICES = [
-        (HAPPY, 'HAPPY'),
-        (ANGRY, 'ANGRY'),
-        (SAD, 'SAD'),
-        (MOTIVATED, 'MOTIVATED'),
-        (BORED, 'BORED')
+        ('H', 'HAPPY'),
+        ('A', 'ANGRY'),
+        ('S', 'SAD'),
+        ('M', 'MOTIVATED'),
+        ('B', 'BORED')
     ]
     feeling = models.CharField(
         max_length = 1,
-        choices = YEAR_IN_SCHOOL_CHOICES,
+        choices = FEELINGS_CHOICES,
         blank = True
     )
     # friends = models.CharField(max_length=30, blank=True)
