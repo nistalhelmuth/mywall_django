@@ -1,9 +1,8 @@
-from django.db import models
+from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
+                                        PermissionsMixin)
+from django.db import models, transaction
 from django.utils import timezone
-from django.db import transaction
-from django.contrib.auth.models import (
-    AbstractBaseUser, PermissionsMixin, BaseUserManager
-)
+
 
 class UserManager(BaseUserManager):
  

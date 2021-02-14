@@ -1,7 +1,8 @@
 from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
-from .views import register_user, authenticate_user, UserProfileAPIView
- 
+
+from .views import UserProfileAPIView, authenticate_user, register_user
+
 urlpatterns = [
     path('register/', register_user),
     path('login/', authenticate_user),
