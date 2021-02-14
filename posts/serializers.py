@@ -1,7 +1,10 @@
 from collections import OrderedDict
+
 from rest_framework import serializers
 from users.serializers import UserSerializer
-from .models import Post, Comment
+
+from .models import Comment, Post
+
 
 class CommentSerializer(serializers.ModelSerializer):
     date_created = serializers.ReadOnlyField()

@@ -1,16 +1,19 @@
-from django.contrib.auth.signals import user_logged_in
+import jwt
 from django.conf import settings
+from django.contrib.auth.signals import user_logged_in
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import status
-from rest_framework.response import Response
-from rest_framework.permissions import AllowAny, IsAuthenticated, IsAuthenticatedOrReadOnly
-from rest_framework.decorators import permission_classes, api_view
-from rest_framework.views import APIView
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.generics import RetrieveAPIView
+from rest_framework.permissions import (AllowAny, IsAuthenticated,
+                                        IsAuthenticatedOrReadOnly)
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework_jwt.utils import jwt_payload_handler
-import jwt
-from .serializers import UserSerializer, UserDetailSerializer
+
 from .models import User
+from .serializers import UserDetailSerializer, UserSerializer
+
 
 @api_view(['POST'])
 @permission_classes([AllowAny, ])

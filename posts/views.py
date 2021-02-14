@@ -1,13 +1,15 @@
-from django.shortcuts import render
-from rest_framework import viewsets, status
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from rest_framework.generics import ListCreateAPIView
-from rest_framework.response import Response
-from mywall.pagination import CustomPagination
 from django.http import Http404
-from .models import Post, Comment
+from django.shortcuts import render
+from mywall.pagination import CustomPagination
+from rest_framework import status, viewsets
+from rest_framework.generics import ListCreateAPIView
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.response import Response
 from users.models import User
-from .serializers import PostSerializer, CommentSerializer
+
+from .models import Comment, Post
+from .serializers import CommentSerializer, PostSerializer
+
 
 class PostViewSet(ListCreateAPIView):
     queryset = Post.objects.all()
