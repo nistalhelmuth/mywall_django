@@ -39,7 +39,7 @@ This is a example implementation of the Django Rest Framework. Also it is includ
 ![Mail Settings](https://github.com/nistalhelmuth/mywall_django/blob/main/Photo.png "Mail Settings")
 
 
-8. Apply configurations and schema to configured database: `python manage.py makemigrations` or `python manage.py migrate`
+8. Apply configurations and schema to configured database: `python manage.py makemigrations` and `python manage.py migrate`
 
 9. Start django rest api  `python manage.py runserver`
 
