@@ -22,13 +22,16 @@ def register_user(request):
     serializer = UserSerializer(data=user)
     if serializer.is_valid():
         serializer.save()
-        send_mail(
-            'Welcome to MyWall',
-            'Your acount has been verified',
-            'alatortrix@example.com',
-            [serializer.data['email']],
-            fail_silently=False,
-        )
+        try:
+            send_mail(
+                'Welcome to MyWall',
+                'Your acount has been verified',
+                'alatortrix@example.com',
+                [serializer.data['email']],
+                fail_silently=False,
+            )
+        except e:
+            print('There was an error sending an email: ', e) 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
