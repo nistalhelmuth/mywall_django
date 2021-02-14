@@ -5,7 +5,7 @@ from users.models import User
 
 class Comment(models.Model):
     content = models.TextField(max_length = 280)
-    created_by = models.ForeignKey(User, on_delete = models.DO_NOTHING) # check
+    created_by = models.ForeignKey(User, on_delete = models.CASCADE)
     date_created = models.DateTimeField(default = timezone.now)
     date_modified = models.DateTimeField(blank = True, null = True)
 
@@ -17,8 +17,7 @@ class Comment(models.Model):
 
 class Post(models.Model):
     content = models.TextField(max_length = 280)
-    # photo = models.CharField()
-    created_by = models.ForeignKey(User, on_delete = models.DO_NOTHING) # check
+    created_by = models.ForeignKey(User, on_delete = models.CASCADE)
     date_created = models.DateTimeField(default = timezone.now)
     date_modified = models.DateTimeField(blank = True, null = True)
     comments = models.ManyToManyField(Comment, blank = True)

@@ -13,16 +13,24 @@ from rest_framework_jwt.utils import jwt_payload_handler
 
 from .models import User
 from .serializers import UserDetailSerializer, UserSerializer
-
+from django.core.mail import send_mail
 
 @api_view(['POST'])
 @permission_classes([AllowAny, ])
 def register_user(request):
     user = request.data
     serializer = UserSerializer(data=user)
-    serializer.is_valid(raise_exception=True)
-    serializer.save()
-    return Response(serializer.data, status=status.HTTP_201_CREATED)
+    if serializer.is_valid():
+        serializer.save()
+        send_mail(
+            'Welcome to MyWall',
+            'Your acount has been verified',
+            'alatortrix@example.com',
+            [serializer.data['email']],
+            fail_silently=False,
+        )
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
 @permission_classes([AllowAny, ])
