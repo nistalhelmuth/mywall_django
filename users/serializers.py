@@ -15,7 +15,7 @@ class UserSerializer(serializers.ModelSerializer):
             'email',
             'name',
             'city',
-            'genre',
+            'gender',
             'date_created',
             'password'
         )
@@ -40,7 +40,7 @@ class UserDetailSerializer(serializers.ModelSerializer):
             'email',
             'name',
             'city',
-            'genre',
+            'gender',
             'date_created',
         )
     

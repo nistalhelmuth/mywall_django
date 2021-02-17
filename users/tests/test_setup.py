@@ -12,11 +12,14 @@ class TestSetUp(APITestCase):
             'email': self.fake.email(),
             'name': self.fake.name(),
             "city": "Test City",
-            "genre": "M",
+            "gender": "M",
             'password': self.fake.email(),
         }
 
         return super().setUp()
+    
+    def api_authentication(self):
+        self.client.credentials(HTTP_AUTHORIZATION="Bearer %s" % (self.token))
 
     def tearDown(self):
         return super().tearDown()
