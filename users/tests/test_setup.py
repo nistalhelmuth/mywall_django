@@ -12,7 +12,7 @@ class TestSetUp(APITestCase):
             'email': self.fake.email(),
             'name': self.fake.name(),
             "city": "Test City",
-            "genre": "M",
+            "gender": "M",
             'password': self.fake.email(),
         }
 

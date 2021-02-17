@@ -36,13 +36,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     name = models.CharField(max_length = 30, null = False)
     city = models.CharField(max_length = 30, null = False)
-    GENRE_CHOICES = [
+    GENDER_CHOICES = [
         ('F', 'FEMALE'),
         ('M', 'MALE'),
     ]
-    genre = models.CharField(
+    gender = models.CharField(
         max_length = 1,
-        choices = GENRE_CHOICES,
+        choices = GENDER_CHOICES,
         null = False
     )
     is_active = models.BooleanField(default=True)

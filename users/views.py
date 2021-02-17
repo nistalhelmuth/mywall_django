@@ -14,6 +14,7 @@ from rest_framework_jwt.utils import jwt_payload_handler
 from .models import User
 from .serializers import UserDetailSerializer, UserSerializer
 from django.core.mail import send_mail
+from smtplib import SMTPException
 
 @api_view(['POST'])
 @permission_classes([AllowAny, ])
@@ -30,8 +31,8 @@ def register_user(request):
                 [serializer.data['email']],
                 fail_silently=False,
             )
-        except e:
-            print('There was an error sending an email: ', e) 
+        except SMTPException:
+            print('There was an error sending an email to: ', serializer.data['email']) 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
