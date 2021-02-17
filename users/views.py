@@ -40,6 +40,9 @@ def register_user(request):
 @permission_classes([AllowAny, ])
 def authenticate_user(request):
     try:
+        if "email" not in request.data.keys() or "password" not in request.data.keys():
+            res = {'error': 'Check the credentials'}
+            return Response(res, status=status.HTTP_400_BAD_REQUEST)
         email = request.data['email']
         password = request.data['password']
         user = User.objects.get(email=email, password=password)

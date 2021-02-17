@@ -4,7 +4,17 @@ from .test_setup import TestSetUp
 from users.models import User
 
 class UsersTestCase(TestSetUp):
-    def test_create_posts(self):
+    def test_create_posts_unauthorized(self):
+        response = self.client.post(
+            "/posts/", 
+            json.dumps({
+                'content': self.post_data["content"],
+            }), 
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+    
+    def test_create_posts_authorized(self):
         self.api_authentication()
         response = self.client.post(
             "/posts/", 
@@ -29,7 +39,7 @@ class UsersTestCase(TestSetUp):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["results"][0]["content"], self.post_data["content"])
     
-    def test_create_comment(self):
+    def test_create_comment_unauthorized(self):
         self.api_authentication()
         response = self.client.post(
             "/posts/", 
@@ -38,6 +48,26 @@ class UsersTestCase(TestSetUp):
             }), 
             content_type='application/json'
         )
+        self.client.credentials(HTTP_AUTHORIZATION="")
+        response = self.client.post(
+            "/posts/%d/"%(response.data["id"]), 
+            json.dumps({
+                'content': self.comment_data["content"],
+            }), 
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_create_comment_authorized(self):
+        self.api_authentication()
+        response = self.client.post(
+            "/posts/", 
+            json.dumps({
+                'content': self.post_data["content"],
+            }), 
+            content_type='application/json'
+        )
+        self.api_authentication()
         response = self.client.post(
             "/posts/%d/"%(response.data["id"]), 
             json.dumps({
