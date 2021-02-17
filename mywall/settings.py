@@ -118,7 +118,6 @@ STATIC_URL = '/static/'
 
 # Custom settings
 
-
 CORS_ORIGIN_ALLOW_ALL = True
 
 AUTH_USER_MODEL = "users.User" 
@@ -133,3 +132,10 @@ JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3000),
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
 }
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "YOUR_EMAIL"
+EMAIL_HOST_PASSWORD = "YOUR_EMAIL_PASSWORD"

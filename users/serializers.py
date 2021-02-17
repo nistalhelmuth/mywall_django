@@ -40,9 +40,7 @@ class UserDetailSerializer(serializers.ModelSerializer):
             'email',
             'name',
             'city',
-            'visitors',
             'genre',
-            'feeling',
             'date_created',
         )
     

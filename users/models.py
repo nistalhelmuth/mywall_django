@@ -36,9 +36,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     name = models.CharField(max_length = 30, null = False)
     city = models.CharField(max_length = 30, null = False)
-    age = models.IntegerField(default = 0)
-    visitors = models.IntegerField(default = 0)
-    verified = models.CharField(max_length = 30, default = False)
     GENRE_CHOICES = [
         ('F', 'FEMALE'),
         ('M', 'MALE'),
@@ -48,19 +45,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         choices = GENRE_CHOICES,
         null = False
     )
-    FEELINGS_CHOICES = [
-        ('H', 'HAPPY'),
-        ('A', 'ANGRY'),
-        ('S', 'SAD'),
-        ('M', 'MOTIVATED'),
-        ('B', 'BORED')
-    ]
-    feeling = models.CharField(
-        max_length = 1,
-        choices = FEELINGS_CHOICES,
-        blank = True
-    )
-    # friends = models.CharField(max_length=30, blank=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
