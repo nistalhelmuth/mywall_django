@@ -1,5 +1,9 @@
 from pathlib import Path
 import datetime
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -69,11 +73,11 @@ WSGI_APPLICATION = 'mywall.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'mywall',
-        'USER': 'admindevpack',
-        'PASSWORD': 'FWNCy3r34qtVxmng',
-        'HOST': 'devpack-test-devpack-test.c2yptdgew3br.us-east-1.rds.amazonaws.com',
-        'PORT': '5432',
+        'NAME': env('DATABASE_NAME'),
+        'USER': env('DATABASE_USER'),
+        'PASSWORD': env('DATABASE_PASSWORD'),
+        'HOST': env('DATABASE_HOST'),
+        'PORT': env('DATABASE_PORT'),
     }
 }
 
