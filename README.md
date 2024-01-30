@@ -28,9 +28,13 @@ This is a example implementation of the Django Rest Framework. Also it is includ
 
 5. Install python 3 dependencies listed on requirements.txt `pip install -r requirements.txt`
 
+TODO: psycopg2-binary dependency have issues from requirements. check how to solve it, manual instalation works. [More Info](https://stackoverflow.com/a/49812755)
+
 ### IMPORTANT NOTE
 
-6. Check and change(if needed) the database configurations in settings.py in mywall(Main folder):
+TODO: Update how to configure database credentials as env variables. .env file works but needs to be configured properly.
+
+1. Check and change(if needed) the database configurations in settings.py in mywall(Main folder):
 
 ![Database Settings](https://github.com/nistalhelmuth/mywall_django/blob/main/Photo2.png "Database Settings")
 
